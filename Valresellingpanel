@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>valhalla</title>
+  <style>
+    body {
+      background-color: #1a001a;
+      color: #ffffff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #2a002a, #1a001a);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(137, 0, 255, 0.3);
+    }
+    .header {
+      font-size: 3.5em;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.3em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .highlight {
+      color: #8a00ff;
+      font-style: italic;
+    }
+    .subheader {
+      font-size: 1.3em;
+      color: #c0c0c0;
+      margin-bottom: 2.5em;
+      line-height: 1.6;
+      font-family: 'Georgia', serif;
+    }
+    .btn {
+      background-color: #8a00ff;
+      color: white;
+      padding: 12px 25px;
+      margin: 0 15px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn:hover {
+      background-color: #6a00cc;
+      transform: scale(1.05);
+    }
+    .discord-btn {
+      background-color: #7289da;
+    }
+    .discord-btn:hover {
+      background-color: #5a6dc9;
+    }
+    .key-system {
+      margin-top: 2em;
+      padding: 15px;
+      background-color: #2a002a;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+    .key-input {
+      padding: 10px;
+      width: 60%;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1a001a;
+      color: #c0c0c0;
+    }
+    .key-submit {
+      padding: 10px 20px;
+      background-color: #8a00ff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .key-submit:hover {
+      background-color: #6a00cc;
+    }
+    .resell-panel {
+      display: none;
+      margin-top: 1em;
+      padding: 20px;
+      background-color: #3a003a;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+    .resell-panel.active {
+      display: block;
+    }
+    #resellMessage {
+      font-size: 0.9em;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+    .resell-section {
+      margin-top: 1em;
+      padding: 10px;
+      background-color: #4a004a;
+      border-radius: 5px;
+    }
+    .new-keys-btn {
+      background-color: #00cc00;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .new-keys-btn:hover {
+      background-color: #00b300;
+    }
+    #newKeysOutput {
+      margin-top: 10px;
+      color: #c0c0c0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Experience Quality with <span class="highlight">valhalla</span>.</div>
+    <div class="subheader">Enjoy a wide range of quality products from valhalla, carefully selected to give you the best experience every time.</div>
+    <a href="https://discord.gg/jrntZqeB2a" class="btn discord-btn"><strong>Join our Discord</strong></a>
+    <a href="#" class="btn">Explore Products</a>
+    <div class="key-system">
+      <input type="text" id="keyInput" class="key-input" placeholder="Enter your key...">
+      <button onclick="checkKey()" class="key-submit">Submit</button>
+      <div id="resellMessage"></div>
+      <div id="resellPanel" class="resell-panel">
+        <h3>Resell Panel</h3>
+        <p>Welcome to the Resell Panel! Manage your products and listings here.</p>
+        <div class="resell-section">
+          <h4>Fortnite Public</h4>
+          <p>Details about Fortnite Public resell.</p>
+          <button class="new-keys-btn" onclick="generateKeys('fortnite')">Make New Keys</button>
+          <div id="fortniteKeys" class="new-keys-output"></div>
+        </div>
+        <div class="resell-section">
+          <h4>Temp Woofer</h4>
+          <p>Details about Temp Woofer resell.</p>
+          <button class="new-keys-btn" onclick="generateKeys('temp')">Make New Keys</button>
+          <div id="tempKeys" class="new-keys-output"></div>
+        </div>
+        <div class="resell-section">
+          <h4>Perm Woofer</h4>
+          <p>Details about Perm Woofer resell.</p>
+          <button class="new-keys-btn" onclick="generateKeys('perm')">Make New Keys</button>
+          <div id="permKeys" class="new-keys-output"></div>
+        </div>
+        <div class="resell-section">
+          <h4>Add</h4>
+          <p>Add new items or keys here.</p>
+          <button class="new-keys-btn" onclick="generateKeys('add')">Make New Keys</button>
+          <div id="addKeys" class="new-keys-output"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const validKeys = [
+      'fortnite-10433218', 'fortnite-19600133', 'fortnite-89083863', 'fortnite-79402654', 'fortnite-23511615',
+      'temp-59407816', 'temp-18495931', 'temp-03413164', 'temp-75255341', 'temp-92832764',
+      'perm-83503056', 'perm-41395376', 'perm-72423884', 'perm-96965328', 'perm-71012269',
+      'add-16697848', 'add-01845146', 'add-27048281', 'add-48932528', 'add-80957015',
+      'KEY-4K9P2M', 'KEY-7J5Q8L', 'KEY-2X1N3B', 'KEY-9F6R4T', 'KEY-5H3Y7U',
+      'KEY-1C8V2J', 'KEY-6D4W9K', 'KEY-3G7Z5P', 'KEY-8E2M1Q', 'KEY-4A9N6R',
+      'KEY-7B5L3T', 'KEY-2F8J9U', 'KEY-6C1Y4W', 'KEY-3D7K2P', 'KEY-9G4M8Q',
+      'KEY-5E2R1T', 'KEY-1A8N6J', 'KEY-4B5L3V', 'KEY-7C9Y2W', 'KEY-3F6K8P',
+      'KEY-9D2M1Q', 'KEY-5G4R7T', 'KEY-1E8J3U', 'KEY-4H6N2W', 'KEY-7A9L5P',
+      'KEY-2B3Y8Q', 'KEY-6C5M1T', 'KEY-3D9R4J', 'KEY-8F2K7U', 'KEY-4G6N1W',
+      'KEY-7E9L3P', 'KEY-2A5Y8Q', 'KEY-6B3M1T', 'KEY-9D4R7J', 'KEY-5F2K8U',
+      'KEY-1G6N3W', 'KEY-4E9L5P', 'KEY-7H2Y8Q', 'KEY-3A5M1T', 'KEY-6B9R4J'
+    ];
+
+    function checkKey() {
+      const input = document.getElementById('keyInput').value;
+      const resellPanel = document.getElementById('resellPanel');
+      const resellMessage = document.getElementById('resellMessage');
+      if (validKeys.includes(input)) {
+        resellPanel.classList.add('active');
+        resellMessage.textContent = 'Access granted! Enjoy the Resell Panel.';
+        resellMessage.className = 'success';
+      } else {
+        resellMessage.textContent = 'Invalid key. Please try again.';
+        resellMessage.className = 'error';
+      }
+    }
+
+    function generateKeys(type) {
+      const numKeys = 5; // Generate 5 new keys per click
+      const keys = [];
+      for (let i = 0; i < numKeys; i++) {
+        const randomNum = Math.floor(10000000 + Math.random() * 90000000);
+        keys.push(`${type}-${randomNum}`);
+      }
+      const outputId = `${type}Keys`;
+      document.getElementById(outputId).textContent = `New Keys: ${keys.join(', ')}`;
+      validKeys.push(...keys); // Add new keys to the valid keys list
+    }
+  </script>
+</body>
+</html>
